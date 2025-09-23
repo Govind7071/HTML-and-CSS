@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Weekly Time Table</title>
+<style>
+  :root{
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --accent: linear-gradient(90deg,#5eead4,#60a5fa);
+    --accent-2: #60a5fa;
+    --cell-border: rgba(15,23,42,0.06);
+    --shadow: 0 6px 24px rgba(15,23,42,0.08);
+    --gap: 10px;
+    --radius: 12px;
+    --header-h: 60px;
+    --time-col-w: 85px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+  body{
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    color:#0f172a;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:1100px;
+  }
+
+  .top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+  }
+
+  .title{
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+  .logo{
+    width:56px;height:56px;border-radius:12px;
+    background:var(--accent);
+    box-shadow:var(--shadow);
+    display:grid;place-items:center;color:#05204a;font-weight:700;
+    font-size:18px;
+  }
+  h1{font-size:18px;margin:0}
+  p.lead{margin:0;color:var(--muted);font-size:13px}
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:18px;
+    overflow:auto;
+  }
+
+  /* grid layout */
+  .timetable{
+    display:grid;
+    grid-template-columns: var(--time-col-w) repeat(5, 1fr);
+    gap: var(--gap);
+    align-items:stretch;
+  }
+
+  /* header row */
+  .head-time{
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+    color:var(--muted);
+    border-bottom:1px solid var(--cell-border);
+    background:linear-gradient(180deg, rgba(96,165,250,0.03), transparent);
+    border-radius:10px 10px 0 0;
+  }
+
+  .day-head{
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#05204a;
+    border-bottom:1px solid var(--cell-border);
+    background:linear-gradient(180deg, rgba(94,234,212,0.03), transparent);
+  }
+
+  /* time column cells and subject cells */
+  .time-cell{
+    min-height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--muted);
+    border-right:1px solid var(--cell-border);
+    border-bottom:1px solid var(--cell-border);
+    font-size:13px;
+    background:transparent;
+  }
+
+  .slot{
+    min-height:64px;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:600;
+    color:#05204a;
+    border-bottom:1px solid var(--cell-border);
+    border-right:1px solid var(--cell-border);
+  }
+
+  /* subject styles */
+  .subject{
+    width:100%;
+    height:100%;
+    border-radius:10px;
+    padding:8px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0 4px 12px rgba(2,6,23,0.04);
+    background:linear-gradient(180deg,rgba(96,165,250,0.12),rgba(96,165,250,0.06));
+    transition:transform .18s ease, box-shadow .18s ease;
+    cursor:default;
+  }
+
+  .subject.small{
+    font-size:13px;font-weight:700;
+    background:linear-gradient(180deg,rgba(99,102,241,0.12),rgba(99,102,241,0.06));
+  }
+
+  .subject.alt{
+    background:linear-gradient(180deg,rgba(96,165,250,0.06),rgba(94,234,212,0.06));
+  }
+
+  .subject:hover{transform:translateY(-6px); box-shadow: 0 10px 30px rgba(2,6,23,0.08);}
+
+  .sub-title{font-size:14px}
+  .sub-meta{font-size:12px;color:var(--muted);font-weight:600}
+
+  /* highlight current */
+  .current .subject{
+    outline:3px solid rgba(96,165,250,0.24);
+    transform:translateY(-4px) scale(1.02);
+  }
+
+  /* responsive */
+  @media (max-width:880px){
+    :root{--time-col-w:68px}
+    .timetable{grid-template-columns: var(--time-col-w) repeat(5, minmax(120px,1fr));}
+    .sub-title{font-size:13px}
+  }
+
+  @media (max-width:560px){
+    .timetable{grid-template-columns: var(--time-col-w) repeat(5, minmax(90px,1fr));}
+    .card{padding:12px}
+    .logo{width:46px;height:46px}
+  }
+
+  /* print-friendly */
+  @media print{
+    body{background:white}
+    .top, .logo{display:none}
+    .card{box-shadow:none}
+  }
+
+  /* small helper row span visual */
+  .empty{background:transparent;border-bottom:1px solid var(--cell-border);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="title">
+      <div class="logo">TT</div>
+      <div>
+        <h1>Class Time Table</h1>
+        <p class="lead">Weekly schedule — editable sample. (Mon → Fri)</p>
+      </div>
+    </div>
+    <div style="text-align:right;color:var(--muted);font-size:13px">Auto-highlight current period</div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="timetable" id="timetable">
+      <!-- header -->
+      <div class="head-time">Time</div>
+      <div class="day-head">Monday</div>
+      <div class="day-head">Tuesday</div>
+      <div class="day-head">Wednesday</div>
+      <div class="day-head">Thursday</div>
+      <div class="day-head">Friday</div>
+
+      <!-- Row 1 -->
+      <div class="time-cell">08:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">08:50</span></div>
+      <div class="slot" data-start="08:00" data-end="08:50">
+        <div class="subject"><div class="sub-title">Mathematics</div><div class="sub-meta">Room 204 • Mr. Sharma</div></div>
+      </div>
+      <div class="slot" data-start="08:00" data-end="08:50">
+        <div class="subject alt"><div class="sub-title">English</div><div class="sub-meta">Room 110 • Ms. Kate</div></div>
+      </div>
+      <div class="slot" data-start="08:00" data-end="08:50">
+        <div class="subject"><div class="sub-title">Biology</div><div class="sub-meta">Lab 1</div></div>
+      </div>
+      <div class="slot" data-start="08:00" data-end="08:50">
+        <div class="subject small"><div class="sub-title">History</div><div class="sub-meta">Rm 309</div></div>
+      </div>
+      <div class="slot" data-start="08:00" data-end="08:50">
+        <div class="subject alt"><div class="sub-title">Computer</div><div class="sub-meta">Lab 2</div></div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="time-cell">09:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">09:50</span></div>
+      <div class="slot" data-start="09:00" data-end="09:50">
+        <div class="subject alt"><div class="sub-title">Physics</div><div class="sub-meta">Room 210</div></div>
+      </div>
+      <div class="slot" data-start="09:00" data-end="09:50">
+        <div class="subject small"><div class="sub-title">Sanskrit</div><div class="sub-meta">Room 113</div></div>
+      </div>
+      <div class="slot" data-start="09:00" data-end="09:50">
+        <div class="subject"><div class="sub-title">Mathematics</div><div class="sub-meta">Rm 204</div></div>
+      </div>
+      <div class="slot" data-start="09:00" data-end="09:50">
+        <div class="subject"><div class="sub-title">Art</div><div class="sub-meta">Art Room</div></div>
+      </div>
+      <div class="slot" data-start="09:00" data-end="09:50">
+        <div class="subject alt"><div class="sub-title">PE</div><div class="sub-meta">Ground</div></div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="time-cell">10:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">10:50</span></div>
+      <div class="slot" data-start="10:00" data-end="10:50">
+        <div class="subject"><div class="sub-title">Chemistry</div><div class="sub-meta">Lab 3</div></div>
+      </div>
+      <div class="slot" data-start="10:00" data-end="10:50">
+        <div class="subject"><div class="sub-title">Math Revision</div><div class="sub-meta">Rm 204</div></div>
+      </div>
+      <div class="slot" data-start="10:00" data-end="10:50">
+        <div class="subject alt"><div class="sub-title">Computer</div><div class="sub-meta">Lab 2</div></div>
+      </div>
+      <div class="slot" data-start="10:00" data-end="10:50">
+        <div class="subject"><div class="sub-title">English</div><div class="sub-meta">Rm 110</div></div>
+      </div>
+      <div class="slot" data-start="10:00" data-end="10:50">
+        <div class="subject small"><div class="sub-title">Library</div><div class="sub-meta">Lib</div></div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="time-cell">11:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">11:50</span></div>
+      <div class="slot" data-start="11:00" data-end="11:50">
+        <div class="subject alt"><div class="sub-title">Geography</div><div class="sub-meta">Rm 307</div></div>
+      </div>
+      <div class="slot" data-start="11:00" data-end="11:50">
+        <div class="subject"><div class="sub-title">Music</div><div class="sub-meta">Music Room</div></div>
+      </div>
+      <div class="slot" data-start="11:00" data-end="11:50">
+        <div class="subject"><div class="sub-title">Mathematics</div><div class="sub-meta">Rm 204</div></div>
+      </div>
+      <div class="slot" data-start="11:00" data-end="11:50">
+        <div class="subject alt"><div class="sub-title">Physics Lab</div><div class="sub-meta">Lab 2</div></div>
+      </div>
+      <div class="slot" data-start="11:00" data-end="11:50">
+        <div class="subject"><div class="sub-title">Computer Practice</div><div class="sub-meta">Lab 2</div></div>
+      </div>
+
+      <!-- Row 5 -->
+      <div class="time-cell">12:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">12:50</span></div>
+      <div class="slot" data-start="12:00" data-end="12:50">
+        <div class="subject small"><div class="sub-title">Assembly</div><div class="sub-meta">Hall</div></div>
+      </div>
+      <div class="slot" data-start="12:00" data-end="12:50">
+        <div class="subject"><div class="sub-title">Lunch</div><div class="sub-meta">—</div></div>
+      </div>
+      <div class="slot" data-start="12:00" data-end="12:50">
+        <div class="subject alt"><div class="sub-title">Lunch</div><div class="sub-meta">—</div></div>
+      </div>
+      <div class="slot" data-start="12:00" data-end="12:50">
+        <div class="subject"><div class="sub-title">Lunch</div><div class="sub-meta">—</div></div>
+      </div>
+      <div class="slot" data-start="12:00" data-end="12:50">
+        <div class="subject alt"><div class="sub-title">Lunch</div><div class="sub-meta">—</div></div>
+      </div>
+
+      <!-- Row 6 -->
+      <div class="time-cell">13:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">13:50</span></div>
+      <div class="slot" data-start="13:00" data-end="13:50">
+        <div class="subject"><div class="sub-title">Computer Theory</div><div class="sub-meta">Lab 2</div></div>
+      </div>
+      <div class="slot" data-start="13:00" data-end="13:50">
+        <div class="subject alt"><div class="sub-title">English Literature</div><div class="sub-meta">Rm 110</div></div>
+      </div>
+      <div class="slot" data-start="13:00" data-end="13:50">
+        <div class="subject"><div class="sub-title">Biology Practical</div><div class="sub-meta">Lab 1</div></div>
+      </div>
+      <div class="slot" data-start="13:00" data-end="13:50">
+        <div class="subject small"><div class="sub-title">Math Quiz</div><div class="sub-meta">Rm 204</div></div>
+      </div>
+      <div class="slot" data-start="13:00" data-end="13:50">
+        <div class="subject alt"><div class="sub-title">Counseling</div><div class="sub-meta">Office</div></div>
+      </div>
+
+      <!-- Row 7 -->
+      <div class="time-cell">14:00<br><span style="font-weight:600;color:var(--muted);font-size:12px">14:50</span></div>
+      <div class="slot" data-start="14:00" data-end="14:50">
+        <div class="subject small"><div class="sub-title">Revision</div><div class="sub-meta">Rm 204</div></div>
+      </div>
+      <div class="slot" data-start="14:00" data-end="14:50">
+        <div class="subject"><div class="sub-title">Free Period</div><div class="sub-meta">—</div></div>
+      </div>
+      <div class="slot" data-start="14:00" data-end="14:50">
+        <div class="subject alt"><div class="sub-title">Project Work</div><div class="sub-meta">Lab</div></div>
+      </div>
+      <div class="slot" data-start="14:00" data-end="14:50">
+        <div class="subject"><div class="sub-title">Debate Club</div><div class="sub-meta">Room 110</div></div>
+      </div>
+      <div class="slot" data-start="14:00" data-end="14:50">
+        <div class="subject alt"><div class="sub-title">Sports</div><div class="sub-meta">Ground</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  Auto-highlight the current period.
+  Slots have data-start and data-end attributes in HH:MM 24-hour format.
+  This script checks current local time and adds 'current' class to the column slot matching today's weekday and time.
+*/
+(function(){
+  const slots = Array.from(document.querySelectorAll('.timetable .slot'));
+  if (!slots.length) return;
+
+  function parseHM(str){
+    const [h,m] = (str||"00:00").split(':').map(Number);
+    return h*60 + (m||0);
+  }
+
+  // map day index: Monday=1 .. Friday=5 using JS getDay() where Sun=0, Mon=1...
+  function highlightNow(){
+    const now = new Date();
+    const today = now.getDay(); // 1..5 for Mon-Fri
+    const minutes = now.getHours()*60 + now.getMinutes();
+
+    // remove previous highlights
+    document.querySelectorAll('.current').forEach(el => el.classList.remove('current'));
+
+    // if weekend, skip
+    if (today < 1 || today > 5) return;
+
+    // Calculate which column index corresponds to today's day in our grid:
+    // Grid columns are: Time (col 1), Monday (col 2) ... Friday (col 6)
+    const dayColumn = today + 1;
+
+    // slots are in row-major order after header: each row has 6 cells (time + 5)
+    // We can loop slots and pick those whose grid column matches dayColumn.
+    // But simpler: slots are placed in DOM in order: slot[0] => first row Monday, slot[1] => first row Tuesday...
+    // There are Nrows rows. We'll compute number of rows:
+    const totalCells = document.querySelectorAll('.timetable > .time-cell').length;
+    const rows = totalCells; // each time-row corresponds to number of .time-cell elements
+
+    // Collect slot elements that belong to today's column:
+    const todaysSlots = [];
+    // slots are arranged: for r in rows: slots for Monday..Friday in sequence.
+    for (let r=0; r<rows; r++){
+      const index = r*5 + (today-1); // 0-based
+      if (slots[index]) todaysSlots.push(slots[index]);
+    }
+
+    // find which slot matches current minutes
+    for (const s of todaysSlots){
+      const start = parseHM(s.getAttribute('data-start'));
+      const end = parseHM(s.getAttribute('data-end'));
+      if (minutes >= start && minutes <= end){
+        s.classList.add('current');
+        // also highlight the containing parent (grid cell) for clearer border
+        s.parentElement.classList.add('current');
+        break;
+      }
+    }
+  }
+
+  // initial highlight and update each minute
+  highlightNow();
+  setInterval(highlightNow, 60*1000);
+})();
+</script>
+</body>
+</html>
