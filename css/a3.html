@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS size units</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        #out{
+            
+            border:solid black 2px;
+            text-align: center;
+            height: 100px;
+            width:50%;
+
+         
+        }
+        .in{
+            border: solid 2px red;
+            margin:20px;
+            width:50%;
+        }
+        .container{
+            border:2px solid yellowgreen;
+            background: pink;
+            height:50vh;
+            width:50vw;
+        }
+        .parent{
+            font-size: 10px;
+        }
+        .child{
+            font-size: 10em;
+        }
+    </style>
+</head>
+<body>
+ <div id="out">
+        <div class="in">hii</div>
+        <div class="in">hello</div>
+    </div>
+    <hr>
+    <div class="container">hii everyone</div>
+    <div class="parent">
+        <div class="child">
+           relative unit(em)
+        </div>
+    </div>
+</body>
+</html>

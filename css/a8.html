@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        border:solid 2px black;
+        background-color: burlywood;
+        margin: 2px;
+        padding: 2px;
+        display: flex;
+    }
+    .box{
+        border:solid 2px rgb(196, 6, 6);
+        margin: 2px;
+        padding: 2px;
+
+    }
+      .smallbox{
+        display: flex;
+      }
+    #box_1a{
+        background-color: aqua;
+        border: solid 2px yellow;
+    }
+    #box_1b{
+        background-color: chartreuse;
+        border: solid 2px blue;
+    }
+    @media(max-width:600px){
+        .container{
+            flex-direction: column;
+        }
+    }
+     
+</style>
+<body>
+    <div class="container">
+        <div class="box" id="box1">
+            <div class="smallbox" id="box_1a">
+                <p>Lorem ipsum dolor sit amet consectetur 
+                    adipisicing elit. Illo commodi fugit
+                     facere reprehenderit eius, optio deserunt
+                      vitae ullam animi possimus?</p>
+            </div>
+            <div class="smallbox" id="box_1b">Lorem ipsum dolor 
+                sit amet consectetur, adipisicing elit. Iste
+                 provident veniam quas officia fugiat reiciendis.
+                </div>
+        </div>
+        <div class="box" id="box2">
+            <img src="r.png" alt="image of box 2 " width="100px">
+        </div>
+    </div>
+</body>
+</html>
