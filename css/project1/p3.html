@@ -1,0 +1,58 @@
+<html>
+
+<head>
+	<style>
+   .container{
+   display:flex;
+   gap:35px;
+   background-color:pink;
+   list-style:none;
+   padding: 5px 5px 5px 5px;
+   
+   }
+   .dropdown { 
+   position: relative; 
+   }
+   .containt{
+   display:flex;
+   flex-direction:column;
+   position:absolute;
+ 
+   }
+   
+   
+   .containt a{ 
+   display:none;
+  padding: 8px 20px;
+   border: 1px solid #ccc;
+   min-width: 100px;
+   }
+   .containt a:hover{
+   background-color:yellow;}
+   .dropdown:hover .containt a {
+  display: block;
+ 
+}
+
+
+
+  
+	</style>
+</head>
+
+<body>
+<ul class="container"><li><a href="#">home</a></li>
+<li><a href="#">about</a></li>
+<li class="dropdown"><a href="#" >dropdown</a><div class="containt">
+<a href="#">link1</a>
+<a href="#">link2</a>
+<a href="#">link3</a>
+</div>
+</li>
+
+</ul>
+    
+</body>
+
+
+</html>
