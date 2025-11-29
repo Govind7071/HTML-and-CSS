@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.parent_container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+   align-items: center;
+   background-color: white;
+   border-radius: 2rem;
+   padding: 0px 0px 20px ;
+   text-align: center;
+}
+#img1{
+    width: 50vw;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+
+}
+#img2{
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: .2rem;
+}
+.item4{
+    display: flex;
+    gap: 2rem;
+     color: white;
+     justify-content: space-around;
+    width: 40vw;
+    background-color: rgba(144, 114, 222, 0.545);
+     border-radius: .5rem;
+     align-items: center;
+  
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.648);
+}
+@media (max-width:500px) {
+    .item4{
+        flex-direction: column;
+ 
+    }
+    #rightbox4{
+         flex-direction: column;
+    }
+    
+}
+#cancel_button{
+   text-decoration: none;
+   color: black;
+}
+#button{
+    background-color: rgb(6, 6, 138);
+    width: 40vw;
+    height: 4vh;
+    color: white;
+    border-radius: .5rem;
+}
+#rightbox4{
+    display: flex;
+     gap: .7rem;
+    align-items: center;
+}

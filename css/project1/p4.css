@@ -48,3 +48,30 @@ a{
     text-align: center;
     font-size: large;
 }
+.contentbox{
+    width: 70vw;
+    height: 85vh;
+    margin: auto;
+    border: 2px solid ;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: .5rem .5rem 5rem .5rem ;
+    margin-top: .4rem;
+    margin-bottom: .5rem;
+}
+.detail{
+    display: flex;
+    gap: 2rem;
+    padding: 0rem 0rem 2.5rem;
+    justify-content: space-evenly;
+}
+.item_img img {
+    width:10rem;
+    border-radius: 1rem;
+}
+.item_img img:hover {
+    transform: scale(1.2);
+    transition: all 2s;
+   
+}

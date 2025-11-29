@@ -1,0 +1,32 @@
+*{margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+.container{
+    display: flex;
+    gap: 35px;
+    background-color: aqua;
+}
+
+.more{
+     position: relative;
+    
+}
+.items{
+    position: absolute;
+   
+     display: none;
+     flex-direction: column;
+}
+.more:hover .items{
+    display:block;
+     display: flex;
+     
+}
+.items a:hover {
+    background-color: lightgray;   /* or any color */
+}
+.items a{
+   padding: 20px;
+   width: 80px;
+}

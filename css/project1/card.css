@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    
+   /* https://grabient.com/HQDgjALANMEMwCYYHYCsIoFoAMsJLGGwlS1zQE4Y4wMdgwEwzgE47cwwA2F5buC3QIgA?style=linearGradient&steps=7&angle=90 */
+
+/* https://grabient.com/HQBgrAzANKAsAcMT0cAjLAnDNYDsOsATDEUSKWicGWlBMHmtA3kS8AGybQVrp4wUfiFFQQQA?style=linearSwatches&steps=13&angle=90 */
+
+/* https://grabient.com/HQBgrAzANKAsAcMT0cAjLAnDNYDsOsATDEUSKWicGWlBMHmtA3kS8AGyYRA?style=linearGradient&steps=13&angle=90 */
+
+background: linear-gradient(90deg, rgba(5, 5, 10, 1.000) 0.000%, rgba(9, 10, 14, 1.000) 8.333%, rgba(13, 14, 18, 1.000) 16.667%, rgba(18, 19, 22, 1.000) 25.000%, rgba(22, 23, 26, 1.000) 33.333%, rgba(26, 27, 30, 1.000) 41.667%, rgba(30, 31, 34, 1.000) 50.000%, rgba(34, 35, 38, 1.000) 58.333%, rgba(38, 39, 42, 1.000) 66.667%, rgba(41, 42, 45, 1.000) 75.000%, rgba(44, 45, 48, 1.000) 83.333%, rgba(46, 47, 51, 1.000) 91.667%, rgba(48, 49, 53, 1.000) 100.000%);    width: 100vw;
+    height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.containt_box{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+     border: 5px solid azure ;
+     border-radius: 1rem;
+     background-color: azure;
+     align-items: center;
+     width: fit-content;
+     padding: 5px;
+   height: 36vh;
+   /* https://grabient.com/HQVgzAHANKDsCcMQAYCMUC0rhldHs6GywATMvqvLDKajTgGxhSnCMQvKvDLwAsMXCCFoo2fqRFZQ8CEA?style=linearGradient&steps=13&angle=90 */
+
+background: linear-gradient(90deg, rgba(130, 205, 224, 1.000) 0.000%, rgba(139, 202, 224, 1.000) 8.333%, rgba(149, 201, 222, 1.000) 16.667%, rgba(161, 200, 219, 1.000) 25.000%, rgba(174, 200, 216, 1.000) 33.333%, rgba(187, 200, 212, 1.000) 41.667%, rgba(202, 201, 208, 1.000) 50.000%, rgba(217, 203, 203, 1.000) 58.333%, rgba(232, 206, 199, 1.000) 66.667%, rgba(246, 209, 196, 1.000) 75.000%, rgba(255, 213, 194, 1.000) 83.333%, rgba(255, 217, 192, 1.000) 91.667%, rgba(255, 221, 192, 1.000) 100.000%)
+ 
+}
+img{
+    width: 15rem;
+    border-radius: 1rem;
+   
+}
